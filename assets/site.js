@@ -47,3 +47,20 @@ document.querySelectorAll('.tab-button').forEach(btn=>{btn.addEventListener('cli
     });
   });
 })();
+
+
+// v3.0.5 mobile table swipe hints
+(function(){
+  function updateHints(){
+    document.querySelectorAll('.table-wrap').forEach(wrap=>{
+      const needs = wrap.scrollWidth > wrap.clientWidth + 8;
+      wrap.classList.toggle('scroll-hint', needs);
+      wrap.classList.toggle('scrolled', wrap.scrollLeft > 12);
+    });
+  }
+  window.addEventListener('load', updateHints);
+  window.addEventListener('resize', updateHints);
+  document.querySelectorAll('.table-wrap').forEach(wrap=>{
+    wrap.addEventListener('scroll', ()=>wrap.classList.toggle('scrolled', wrap.scrollLeft > 12), {passive:true});
+  });
+})();
