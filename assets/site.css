@@ -48,3 +48,115 @@
   .topbar nav{max-width:calc(100vw - 6.8rem);}
   .topbar nav a{font-size:.68rem;padding:.32rem .46rem;}
 }
+
+
+/* v3.0.6 mobile table hint refinement */
+@media(max-width:760px){
+  /* Remove the right-edge fade overlay; it moved with the scrollable table and made mobile tables look broken. */
+  .table-wrap.scroll-hint::before,
+  .table-wrap.scroll-hint::after{content:none!important;display:none!important;}
+
+  /* Put the swipe cue inside the table header, just after the second column label. */
+  .table-wrap.scroll-hint thead th:nth-child(2){overflow:visible;}
+  .table-wrap.scroll-hint thead th:nth-child(2)::after{
+    content:'Swipe \2194';
+    position:absolute;
+    left:calc(100% + .45rem);
+    top:50%;
+    transform:translateY(-50%);
+    z-index:8;
+    border:1px solid rgba(247,201,72,.50);
+    background:rgba(8,10,18,.94);
+    color:var(--gold);
+    border-radius:999px;
+    padding:.18rem .45rem;
+    font-size:.63rem;
+    font-weight:950;
+    letter-spacing:.025em;
+    line-height:1;
+    text-transform:none;
+    white-space:nowrap;
+    box-shadow:0 6px 18px rgba(0,0,0,.38);
+    pointer-events:none;
+  }
+  .table-wrap.scroll-hint.scrolled thead th:nth-child(2)::after{opacity:.30;}
+}
+
+
+/* v3.0.6 mobile UX + team login polish */
+.login-stub{white-space:nowrap;}
+.table-frame{position:relative;max-width:100%;}
+.table-frame .table-wrap{width:100%;}
+@media(max-width:760px){
+  .topbar{flex-direction:row!important;align-items:center!important;gap:.5rem;padding:.45rem .6rem;overflow-x:auto;white-space:nowrap;}
+  .brand{font-size:.78rem;letter-spacing:.02em;gap:.45rem;flex:0 0 auto;}
+  .brand-mark{width:1.65rem;height:1.65rem;border-radius:.45rem;font-size:.78rem;}
+  .topbar nav{flex-wrap:nowrap;overflow-x:auto;max-width:calc(100vw - 8.5rem);gap:.3rem;padding:.05rem 0 .2rem;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .topbar nav::-webkit-scrollbar{display:none;}
+  .topbar nav a,.mode-pill,.btn{font-size:.72rem;padding:.34rem .52rem;white-space:nowrap;}
+  .mode-pill{display:none;}
+  main{padding-top:.75rem;}
+  .hero h1{font-size:2rem;}
+  .credit-line{font-size:.88rem;line-height:1.35;}
+  th,td{padding:.55rem .6rem;}
+
+  /* Old table hint overlays are disabled. */
+  .table-wrap.scroll-hint::before,
+  .table-wrap.scroll-hint::after{content:none!important;display:none!important;}
+
+  /* Stable edge fades live on the non-scrolling table-frame, so they do not slide away with the table. */
+  .table-frame.has-scroll::before,
+  .table-frame.has-scroll::after{
+    content:'';
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:1.75rem;
+    z-index:8;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .18s ease;
+  }
+  .table-frame.has-scroll.can-scroll-left::before{
+    left:0;
+    opacity:1;
+    background:linear-gradient(90deg,rgba(8,10,18,.94),rgba(8,10,18,0));
+    border-radius:.9rem 0 0 .9rem;
+  }
+  .table-frame.has-scroll.can-scroll-right::after{
+    right:0;
+    opacity:1;
+    background:linear-gradient(270deg,rgba(8,10,18,.94),rgba(8,10,18,0));
+    border-radius:0 .9rem .9rem 0;
+  }
+
+  /* Put the swipe cue inside the table header, just after the second column label. */
+  .table-wrap.scroll-hint thead th:nth-child(2){overflow:visible;}
+  .table-wrap.scroll-hint thead th:nth-child(2)::after{
+    content:'Swipe \2194';
+    position:absolute;
+    left:calc(100% + .45rem);
+    top:50%;
+    transform:translateY(-50%);
+    z-index:9;
+    border:1px solid rgba(247,201,72,.50);
+    background:rgba(8,10,18,.96);
+    color:var(--gold);
+    border-radius:999px;
+    padding:.18rem .45rem;
+    font-size:.63rem;
+    font-weight:950;
+    letter-spacing:.025em;
+    line-height:1;
+    text-transform:none;
+    white-space:nowrap;
+    box-shadow:0 6px 18px rgba(0,0,0,.38);
+    pointer-events:none;
+  }
+  .table-wrap.scroll-hint.scrolled thead th:nth-child(2)::after{opacity:.22;}
+}
+@media(max-width:420px){
+  .brand span:not(.brand-mark){max-width:7.2rem;overflow:hidden;text-overflow:ellipsis;}
+  .topbar nav{max-width:calc(100vw - 6.8rem);}
+  .topbar nav a{font-size:.68rem;padding:.32rem .46rem;}
+}

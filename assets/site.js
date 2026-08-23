@@ -64,3 +64,42 @@ document.querySelectorAll('.tab-button').forEach(btn=>{btn.addEventListener('cli
     wrap.addEventListener('scroll', ()=>wrap.classList.toggle('scrolled', wrap.scrollLeft > 12), {passive:true});
   });
 })();
+
+
+// v3.0.6 mobile table frames: stable edge fades + second-column swipe cue
+(function(){
+  function ensureFrames(){
+    document.querySelectorAll('.table-wrap').forEach(wrap=>{
+      if(wrap.parentElement && wrap.parentElement.classList.contains('table-frame')) return;
+      const frame=document.createElement('div');
+      frame.className='table-frame';
+      wrap.parentNode.insertBefore(frame, wrap);
+      frame.appendChild(wrap);
+    });
+  }
+  function updateHints(){
+    document.querySelectorAll('.table-frame').forEach(frame=>{
+      const wrap=frame.querySelector('.table-wrap');
+      if(!wrap) return;
+      const max=Math.max(0, wrap.scrollWidth - wrap.clientWidth);
+      const needs=max > 8;
+      frame.classList.toggle('has-scroll', needs);
+      frame.classList.toggle('can-scroll-left', needs && wrap.scrollLeft > 4);
+      frame.classList.toggle('can-scroll-right', needs && wrap.scrollLeft < max - 4);
+      wrap.classList.toggle('scroll-hint', needs);
+      wrap.classList.toggle('scrolled', wrap.scrollLeft > 12);
+    });
+  }
+  function init(){
+    ensureFrames();
+    document.querySelectorAll('.table-wrap').forEach(wrap=>{
+      if(wrap.dataset.v306MobileFramesAttached==='true') return;
+      wrap.dataset.v306MobileFramesAttached='true';
+      wrap.addEventListener('scroll', updateHints, {passive:true});
+    });
+    updateHints();
+  }
+  window.addEventListener('load', init);
+  window.addEventListener('resize', updateHints);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
