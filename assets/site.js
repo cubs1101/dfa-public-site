@@ -103,3 +103,16 @@ document.querySelectorAll('.tab-button').forEach(btn=>{btn.addEventListener('cli
   window.addEventListener('resize', updateHints);
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
+// Cloudflare Web Analytics
+(function loadCloudflareAnalytics() {
+  if (document.querySelector('script[data-cf-beacon]')) return;
+
+  const beacon = document.createElement('script');
+  beacon.type = 'module';
+  beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  beacon.setAttribute(
+    'data-cf-beacon',
+    '{"token":"0cbca45a903a4c6db3bfdaf3de965442"}'
+  );
+  document.body.appendChild(beacon);
+})();
